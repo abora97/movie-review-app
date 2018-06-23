@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mu_pop"
+        android:title="Popular" />
+    <item
+        android:id="@+id/mu_top"
+        android:title="Top Rated" />
+    <item
+        android:id="@+id/mu_fav"
+        android:title="My Favorite" />
+</menu>
