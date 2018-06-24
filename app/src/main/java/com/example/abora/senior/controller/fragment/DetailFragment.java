@@ -53,15 +53,15 @@ public class DetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
-     ButterKnife.bind(this, view);
+        ButterKnife.bind(this, view);
 
         Movie movie = getActivity().getIntent().getExtras().getParcelable(Constant.MOVIE_EXTRA);
         mMovie = movie;
 
         boolean isFav = Util.isFavourit(mMovie.getId());
-        if(isFav){
+        if (isFav) {
             favBtn.setImageResource(R.drawable.star_selected);
-        }else {
+        } else {
             favBtn.setImageResource(R.drawable.star);
         }
 

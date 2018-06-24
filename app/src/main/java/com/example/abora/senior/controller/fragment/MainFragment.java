@@ -73,6 +73,7 @@ public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         } else {
             loadFromChach();
         }
+
         return view;
     }
 
@@ -90,7 +91,6 @@ public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             Toast.makeText(getActivity(), "No Internet Connection", Toast.LENGTH_SHORT).show();
             getFav();
         }
-
     }
 
     private void getMovies(final String movieType) {
@@ -122,6 +122,7 @@ public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         List<Movie> movies = FastSave.getInstance().getObjectsList(Constant.FAV_MOVIE, Movie.class);
         adapter = new MoviesAdapter(getActivity(), movies);
         recMovie.setAdapter(adapter);
+
         if (swpipeLayout.isRefreshing())
             swpipeLayout.setRefreshing(false);
     }
