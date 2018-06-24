@@ -7,17 +7,11 @@
     android:background="#515151"
     tools:context=".controller.activity.MainActivity">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swpipe_layout"
+    <fragment
+        android:id="@+id/fragment"
+        android:name="com.example.abora.senior.controller.fragment.MainFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rec_movie"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_main"
+        />
 </FrameLayout>
