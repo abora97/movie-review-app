@@ -1,6 +1,7 @@
 package com.example.abora.senior.util;
 
 public interface Constant {
+
     String API_KEY="api_key";
     String API_KEY_VALUE="4374ef2c013c2f14cff36be52a3fb3b4";
 

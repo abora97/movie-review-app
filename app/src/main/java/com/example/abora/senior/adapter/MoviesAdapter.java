@@ -15,6 +15,8 @@ import com.example.abora.senior.R;
 import com.example.abora.senior.controller.activity.DetailActivity;
 import com.example.abora.senior.model.Movie;
 import com.example.abora.senior.util.Constant;
+import com.mindorks.nybus.NYBus;
+import com.mindorks.nybus.event.Channel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -52,9 +54,15 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieHolde
         holder.ly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra(Constant.MOVIE_EXTRA, movie);
-                context.startActivity(intent);
+                if(!context.getResources().getBoolean(R.bool.isTablet)){
+                    Intent intent = new Intent(context, DetailActivity.class);
+                    intent.putExtra(Constant.MOVIE_EXTRA, movie);
+                    context.startActivity(intent);
+                }else {
+                    NYBus.get().post(movie,Channel.ONE);
+                    //    NYBus.get().post(movie);
+                }
+
             }
         });
     }

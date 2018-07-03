@@ -16,6 +16,9 @@ import com.example.abora.senior.controller.activity.DetailActivity;
 import com.example.abora.senior.model.Movie;
 import com.example.abora.senior.util.Constant;
 import com.example.abora.senior.util.Util;
+import com.google.common.eventbus.Subscribe;
+import com.mindorks.nybus.NYBus;
+import com.mindorks.nybus.event.Channel;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -25,7 +28,7 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DetailFragment extends Fragment {
+public class DetailFragment extends Fragment implements View.OnClickListener {
 
 
     @BindView(R.id.cover_image)
@@ -54,17 +57,23 @@ public class DetailFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
         ButterKnife.bind(this, view);
+        init();
+        NYBus.get().register(this, Channel.ONE);
 
-        Movie movie = getActivity().getIntent().getExtras().getParcelable(Constant.MOVIE_EXTRA);
-        mMovie = movie;
+//        NYBus.get().register(this);
+        return view;
+    }
 
-        boolean isFav = Util.isFavourit(mMovie.getId());
-        if (isFav) {
-            favBtn.setImageResource(R.drawable.star_selected);
-        } else {
-            favBtn.setImageResource(R.drawable.star);
+    private void init() {
+        if (!getResources().getBoolean(R.bool.isTablet)) {
+            Movie movie = getActivity().getIntent().getExtras().getParcelable(Constant.MOVIE_EXTRA);
+            mMovie = movie;
+            loadMovie(movie);
         }
+        favBtn.setOnClickListener(this);
+    }
 
+    private void loadMovie(Movie movie) {
         titleTv.setText(movie.getTitle());
 
         // ratingTv.setText(String.valueOf(Math.getExponent(movie.getPopularity())));
@@ -79,27 +88,35 @@ public class DetailFragment extends Fragment {
                 .load(Constant.BASE_IMAGE_URL + movie.getPosterPath())
                 .into(img);
 
-        favBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean isFav = Util.isFavourit(mMovie.getId());
-                if (isFav) {
-                    Util.removeFromFav(mMovie.getId());
-                    favBtn.setImageResource(R.drawable.star);
-                    Toast.makeText(getActivity(), "Remove From Favourite", Toast.LENGTH_SHORT).show();
-                } else {
-                    Util.addToFav(mMovie);
-                    favBtn.setImageResource(R.drawable.star_selected);
-                    Toast.makeText(getActivity(), "Add to Favourite ", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        return view;
+        boolean isFav = Util.isFavourit(mMovie.getId());
+        if (isFav) {
+            favBtn.setImageResource(R.drawable.star_selected);
+        } else {
+            favBtn.setImageResource(R.drawable.star);
+        }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
     }
+
+    @Override
+    public void onClick(View v) {
+        boolean isFav = Util.isFavourit(mMovie.getId());
+        if (isFav) {
+            Util.removeFromFav(mMovie.getId());
+            favBtn.setImageResource(R.drawable.star);
+            Toast.makeText(getActivity(), "Remove From Favourite", Toast.LENGTH_SHORT).show();
+        } else {
+            Util.addToFav(mMovie);
+            favBtn.setImageResource(R.drawable.star_selected);
+            Toast.makeText(getActivity(), "Add to Favourite ", Toast.LENGTH_SHORT).show();
+        }
+    }
+    @com.mindorks.nybus.annotation.Subscribe(channelId = Channel.ONE)
+    public void onGetMovie(Movie mMovie) {
+        loadMovie(mMovie);
+    }
 }
+

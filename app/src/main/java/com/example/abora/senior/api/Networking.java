@@ -12,6 +12,7 @@ import com.example.abora.senior.util.Constant;
 public class Networking {
     public static void getMovice(String moviceType,final onMoviceRecivedListener listener) {
 
+        // to connect to with api (movie DB)
         AndroidNetworking.get(Constant.BASE_URL + moviceType)
                 .addQueryParameter(Constant.API_KEY, Constant.API_KEY_VALUE)
                 .addQueryParameter(Constant.PAGE_KEY, "1")

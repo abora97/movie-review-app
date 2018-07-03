@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.appizona.yehiahd.fastsave.FastSave;
@@ -20,7 +21,6 @@ import com.example.abora.senior.R;
 import com.example.abora.senior.adapter.MoviesAdapter;
 import com.example.abora.senior.api.Networking;
 import com.example.abora.senior.callback.onMoviceRecivedListener;
-import com.example.abora.senior.controller.activity.MainActivity;
 import com.example.abora.senior.model.Movie;
 import com.example.abora.senior.util.Connection;
 import com.example.abora.senior.util.Constant;
@@ -29,7 +29,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +40,12 @@ public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     RecyclerView recMovie;
     @BindView(R.id.swpipe_layout)
     SwipeRefreshLayout swpipeLayout;
+    @BindView(R.id.bu_Back)
+    Button buBack;
+    @BindView(R.id.bu_home)
+    Button buHome;
+    @BindView(R.id.bu_next)
+    Button buNext;
 
     private MoviesAdapter adapter;
     private RecyclerView.LayoutManager mLayoutManager;

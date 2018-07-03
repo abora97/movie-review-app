@@ -6,6 +6,7 @@ import com.example.abora.senior.model.Movie;
 import java.util.List;
 
 public class Util {
+
     public static boolean isFavourit(int id){
         List<Movie> movies= FastSave.getInstance().getObjectsList(Constant.FAV_MOVIE,Movie.class);
         for (Movie m:movies){
@@ -15,6 +16,7 @@ public class Util {
         }
         return false;
     }
+
     public static void removeFromFav(int id){
         List<Movie> movies= FastSave.getInstance().getObjectsList(Constant.FAV_MOVIE,Movie.class);
         for (int i = 0; i <movies.size() ; i++) {
@@ -24,10 +26,11 @@ public class Util {
             }
         }
     }
+
     public static void addToFav(Movie mMovie){
         List<Movie> movies= FastSave.getInstance().getObjectsList(Constant.FAV_MOVIE,Movie.class);
         movies.add(mMovie);
         FastSave.getInstance().saveObjectsList(Constant.FAV_MOVIE,movies);
-
     }
+
 }
